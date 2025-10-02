@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarkin Mota Autos | Inventory</title>
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Configure custom colors for easy use */
+        :root {
+            --color-neon-red: #ff003c;
+        }
+
+        /* Custom Tailwind Configuration */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-red': 'var(--color-neon-red)',
+                        'primary-dark': '#000000',
+                        'secondary-light': '#ffffff',
+                        'card-dark': '#0d0d0d',
+                        'sidebar-dark': '#151515',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+
+        /* --- Custom CSS for Card Animation --- */
+        .car-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #1f2937;
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.4); /* Neon glow effect */
+            border-color: var(--color-neon-red);
+        }
+        
+        /* Sticky filter sidebar */
+        .filter-sidebar {
+            position: sticky;
+            top: 1.5rem; /* Adjust based on navigation height */
+            max-height: calc(100vh - 3rem);
+            overflow-y: auto;
+        }
+
+        /* Hide Scrollbar for aesthetic purposes */
+        .filter-sidebar::-webkit-scrollbar {
+            display: none;
+        }
+
+    </style>
+</head>
+<body class="bg-primary-dark font-sans text-secondary-light min-h-screen">
+
+    <!-- Navigation (Consistent Look) -->
+    <header class="w-full flex justify-center lg:justify-between items-center px-4 lg:px-20 py-4 backdrop-blur-sm bg-primary-dark/80 shadow-lg border-b border-gray-800 fixed top-0 left-0 z-50">
+        <div class="logo text-2xl font-extrabold tracking-wider text-neon-red">SARKIN MOTA AUTOS</div>
+        <nav class="hidden lg:flex">
+            <ul class="flex space-x-6 text-sm font-semibold">
+                <li><a href="/index.html" class="hover:text-neon-red transition duration-200">HOME</a></li>
+                <li><a href="/ceo-profile.html" class="hover:text-neon-red transition duration-200">MEET THE CEO</a></li>
+                <li><a href="/ventures.html" class="hover:text-neon-red transition duration-200">VENTURES</a></li>
+                <li><a href="/contact.html" class="bg-neon-red text-primary-dark px-3 py-1 rounded-full hover:bg-white hover:text-neon-red transition duration-300 ml-4 shadow-lg">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="pt-24 pb-16 px-4 lg:px-10">
+        
+        <!-- Main Header -->
+        <h1 class="text-5xl lg:text-7xl font-extrabold uppercase text-center mb-4 text-secondary-light">THE CURATED COLLECTION</h1>
+        <p class="text-xl text-center text-gray-400 mb-16">The finest luxury and exotic vehicles available now. Drive your ambition.</p>
+        
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-10">
+            
+            <!-- Filter Sidebar (Col 1 of 4) -->
+            <aside class="lg:col-span-1">
+                <div class="filter-sidebar bg-sidebar-dark p-6 rounded-xl shadow-2xl border border-gray-800">
+                    <h2 class="text-2xl font-bold uppercase text-neon-red border-b pb-3 mb-6 border-gray-700">Filter Inventory</h2>
+                    
+                    <!-- Search Input -->
+                    <div class="mb-6">
+                        <label for="search" class="block text-sm font-medium text-gray-300 mb-2">Search by Keyword</label>
+                        <input type="text" id="search" placeholder="e.g., Rolls-Royce, SUV" class="w-full p-2 rounded bg-card-dark border border-gray-700 focus:ring-neon-red focus:border-neon-red transition duration-200 text-secondary-light" oninput="applyFilters()">
+                    </div>
+
+                    <!-- Make Filter -->
+                    <div class="mb-6">
+                        <label for="make-filter" class="block text-sm font-medium text-gray-300 mb-2">Select Make</label>
+                        <select id="make-filter" class="w-full p-2 rounded bg-card-dark border border-gray-700 focus:ring-neon-red focus:border-neon-red text-secondary-light" onchange="applyFilters()">
+                            <option value="">All Makes</option>
+                            <!-- Options populated by JS -->
+                        </select>
+                    </div>
+
+                    <!-- Body Type Filter -->
+                    <div class="mb-6">
+                        <label for="body-filter" class="block text-sm font-medium text-gray-300 mb-2">Body Type</label>
+                        <select id="body-filter" class="w-full p-2 rounded bg-card-dark border border-gray-700 focus:ring-neon-red focus:border-neon-red text-secondary-light" onchange="applyFilters()">
+                            <option value="">All Body Types</option>
+                            <option value="Sedan">Sedan</option>
+                            <option value="SUV">SUV</option>
+                            <option value="Coupe">Coupe</option>
+                            <option value="Truck">Truck</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Year Range Filter -->
+                    <div class="mb-6">
+                        <label for="year-filter" class="block text-sm font-medium text-gray-300 mb-2">Minimum Year</label>
+                        <input type="number" id="year-filter" min="2000" max="2025" placeholder="e.g., 2020" class="w-full p-2 rounded bg-card-dark border border-gray-700 focus:ring-neon-red focus:border-neon-red text-secondary-light" oninput="applyFilters()">
+                    </div>
+
+                    <!-- Reset Button -->
+                    <button onclick="resetFilters()" class="w-full p-3 bg-gray-700 text-secondary-light rounded-lg hover:bg-neon-red hover:text-primary-dark transition duration-300 font-bold uppercase">Reset Filters</button>
+                </div>
+            </aside>
+
+            <!-- Car Listings (Cols 2, 3, 4 of 4) -->
+            <div class="lg:col-span-3">
+                <div id="car-listings" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                    <!-- Car cards will be injected here by JavaScript -->
+                    <p id="no-results" class="col-span-full text-center text-xl text-gray-500 hidden mt-10">No vehicles match your current filters. Try resetting the criteria.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (Consistent Look) -->
+    <footer class="bg-gray-900 py-6 px-6 text-center text-gray-400 border-t border-gray-800 mt-16">
+        <div class="text-lg mb-2">
+            <a href="#" class="hover:text-neon-red mx-2">IG</a> |
+            <a href="#" class="hover:text-neon-red mx-2">X</a> |
+            <a href="#" class="hover:text-neon-red mx-2">YT</a>
+        </div>
+        <p class="text-xs">&copy; 2025 Sarkin Mota Autos. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Sample Inventory Data (Mocking a database fetch)
+        const inventory = [
+            { id: 1, make: 'Mercedes-Benz', model: 'G-Wagon G63', year: 2024, price: 'POA', mileage: '500 km', body: 'SUV', color: 'Matte Black', description: 'The iconic luxury off-roader, fully loaded.', image: 'placeholder-g63.jpg' },
+            { id: 2, make: 'Rolls-Royce', model: 'Phantom Series II', year: 2023, price: 'POA', mileage: '12,000 km', body: 'Sedan', color: 'White', description: 'Ultimate luxury and presence. Bespoke interior.', image: 'placeholder-phantom.jpg' },
+            { id: 3, make: 'Lexus', model: 'LX 600', year: 2025, price: 'POA', mileage: 'Brand New', body: 'SUV', color: 'Silver', description: 'Executive level comfort and technology.', image: 'placeholder-lx600.jpg' },
+            { id: 4, make: 'Lamborghini', model: 'Urus Performante', year: 2023, price: 'POA', mileage: '8,500 km', body: 'SUV', color: 'Yellow', description: 'Super SUV performance for the road.', image: 'placeholder-urus.jpg' },
+            { id: 5, make: 'Mercedes-Benz', model: 'S-Class S580', year: 2022, price: 'POA', mileage: '2,100 km', body: 'Sedan', color: 'Navy Blue', description: 'The pinnacle of sedan luxury and tech.', image: 'placeholder-sclass.jpg' },
+            { id: 6, make: 'Ferrari', model: 'SF90 Stradale', year: 2021, price: 'POA', mileage: '1,500 km', body: 'Coupe', color: 'Red', description: 'Hybrid hypercar with extreme performance.', image: 'placeholder-sf90.jpg' },
+            { id: 7, make: 'Toyota', model: 'Land Cruiser V8', year: 2020, price: 'POA', mileage: '35,000 km', body: 'SUV', color: 'Black', description: 'Rugged reliability meets luxury.', image: 'placeholder-lc.jpg' },
+        ];
+
+        const listingsContainer = document.getElementById('car-listings');
+        const makeFilter = document.getElementById('make-filter');
+        const noResultsMessage = document.getElementById('no-results');
+
+        // Function to populate the Make filter options dynamically
+        function populateFilters() {
+            const makes = [...new Set(inventory.map(car => car.make))].sort();
+            makes.forEach(make => {
+                const option = document.createElement('option');
+                option.value = make;
+                option.textContent = make;
+                makeFilter.appendChild(option);
+            });
+        }
+
+        // Function to render car cards based on the filtered array
+        function renderCars(cars) {
+            listingsContainer.innerHTML = '';
+            if (cars.length === 0) {
+                noResultsMessage.classList.remove('hidden');
+                return;
+            }
+            noResultsMessage.classList.add('hidden');
+
+            cars.forEach(car => {
+                const card = document.createElement('a');
+                card.href = `/car-details/${car.id}`; // Placeholder link to detail page
+                card.className = 'car-card block bg-card-dark rounded-xl shadow-lg hover:bg-gray-900 overflow-hidden';
+                
+                card.innerHTML = `
+                    <!-- Image Placeholder -->
+                    <div class="h-48 bg-gray-800 flex items-center justify-center overflow-hidden">
+                        <img src="${car.image}" alt="${car.make} ${car.model}" class="w-full h-full object-cover opacity-70 transition duration-500 hover:scale-105">
+                    </div>
+                    
+                    <div class="p-5">
+                        <h2 class="text-2xl font-bold mb-2 text-secondary-light">${car.make} ${car.model}</h2>
+                        <p class="text-neon-red font-extrabold text-3xl mb-4">${car.price}</p>
+                        
+                        <!-- Quick Specs -->
+                        <div class="flex justify-between text-sm text-gray-400 border-t border-b border-gray-700 py-3 mb-4">
+                            <span><strong class="text-secondary-light">${car.year}</strong> | Year</span>
+                            <span><strong class="text-secondary-light">${car.mileage}</strong> | Mileage</span>
+                            <span><strong class="text-secondary-light">${car.body}</strong> | Type</span>
+                        </div>
+                        
+                        <!-- Inquiry Button -->
+                        <a href="/contact.html?inquiryType=sales&carId=${car.id}" class="block text-center bg-neon-red text-primary-dark font-bold py-3 rounded-lg hover:bg-white transition duration-300 uppercase">
+                            Inquire Now
+                        </a>
+                    </div>
+                `;
+                listingsContainer.appendChild(card);
+            });
+        }
+
+        // Main Filtering Logic
+        function applyFilters() {
+            const keyword = document.getElementById('search').value.toLowerCase();
+            const selectedMake = makeFilter.value;
+            const selectedBody = document.getElementById('body-filter').value;
+            const minYear = parseInt(document.getElementById('year-filter').value) || 0;
+
+            const filtered = inventory.filter(car => {
+                const matchesKeyword = car.make.toLowerCase().includes(keyword) || 
+                                       car.model.toLowerCase().includes(keyword) || 
+                                       car.description.toLowerCase().includes(keyword);
+                
+                const matchesMake = !selectedMake || car.make === selectedMake;
+                const matchesBody = !selectedBody || car.body === selectedBody;
+                const matchesYear = car.year >= minYear;
+
+                return matchesKeyword && matchesMake && matchesBody && matchesYear;
+            });
+
+            renderCars(filtered);
+        }
+
+        // Reset Filters function
+        function resetFilters() {
+            document.getElementById('search').value = '';
+            document.getElementById('make-filter').value = '';
+            document.getElementById('body-filter').value = '';
+            document.getElementById('year-filter').value = '';
+            renderCars(inventory);
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            populateFilters();
+            renderCars(inventory);
+        });
+    </script>
+</body>
+</html>
+ 
