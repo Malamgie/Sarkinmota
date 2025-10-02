@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarkin Mota Autos | Services</title>
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Configure custom colors for easy use */
+        :root {
+            --color-neon-red: #ff003c;
+        }
+
+        /* Custom Tailwind Configuration */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-red': 'var(--color-neon-red)',
+                        'primary-dark': '#000000',
+                        'secondary-light': '#ffffff',
+                        'card-dark': '#0d0d0d',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+
+        /* --- Custom CSS for Animation --- */
+        
+        /* Animated Button Pulse on Hover */
+        .btn-pulse {
+            transition: all 0.3s ease;
+        }
+        .btn-pulse:hover {
+            animation: pulse 0.5s infinite alternate;
+            background-color: var(--color-neon-red);
+            color: #000;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 0, 60, 0.5); }
+            100% { transform: scale(1.02); box-shadow: 0 0 15px rgba(255, 0, 60, 0.8); }
+        }
+
+        /* Card Hover Effect */
+        .service-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-left-color: var(--color-neon-red);
+        }
+    </style>
+</head>
+<body class="bg-primary-dark font-sans text-secondary-light min-h-screen">
+
+    <!-- Navigation (Consistent Look) -->
+    <header class="w-full flex justify-center lg:justify-between items-center px-4 lg:px-20 py-4 backdrop-blur-sm bg-primary-dark/80 shadow-lg border-b border-gray-800">
+        <div class="logo text-2xl font-extrabold tracking-wider text-neon-red">SARKIN MOTA AUTOS</div>
+        <nav class="hidden lg:flex">
+            <ul class="flex space-x-6 text-sm font-semibold">
+                <li><a href="/index.html" class="hover:text-neon-red transition duration-200">HOME</a></li>
+                <li><a href="/inventory" class="hover:text-neon-red transition duration-200">INVENTORY</a></li>
+                <li><a href="/ceo-profile" class="hover:text-neon-red transition duration-200">MEET THE CEO</a></li>
+                <li><a href="/contact.html" class="bg-neon-red text-primary-dark px-3 py-1 rounded-full hover:bg-white hover:text-neon-red transition duration-300 ml-4 shadow-lg">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="py-16 px-4 lg:py-24 lg:px-20">
+        <!-- Main Header -->
+        <h1 class="text-5xl lg:text-7xl font-extrabold uppercase text-center mb-4 text-secondary-light">YOUR ROAD TO LUXURY</h1>
+        <p class="text-xl text-center text-gray-400 mb-16">More than sales, we offer solutions. Explore the bespoke services that define the Sarkin Mota experience.</p>
+        
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Service Card 1: Financing & Loans (The Main Offer) -->
+            <div class="service-card bg-card-dark p-8 rounded-2xl shadow-xl border border-gray-800">
+                <div class="text-6xl text-neon-red mb-6">₦</div>
+                <h2 class="text-3xl font-bold mb-4 uppercase">PREMIUM FINANCING</h2>
+                <p class="text-lg text-gray-300 mb-4">
+                    The drive is affordable. We provide highly competitive and flexible loan packages tailored for high-value purchases.
+                </p>
+                <div class="bg-gray-900 p-4 rounded-lg mt-6">
+                    <h4 class="font-bold text-neon-red mb-2">SPECIAL CIVIL SERVANT PACKAGE</h4>
+                    <ul class="list-disc list-inside text-sm text-gray-400 space-y-1 text-left">
+                        <li>Simplified documentation for federal and state staff.</li>
+                        <li>Extended repayment terms up to 60 months.</li>
+                        <li>Low initial down payment options.</li>
+                    </ul>
+                </div>
+                <a href="/contact.html?inquiryType=financing" class="mt-8 inline-block bg-neon-red text-primary-dark font-bold px-6 py-3 rounded-lg uppercase btn-pulse transition duration-300 shadow-md">
+                    Apply for a Loan
+                </a>
+            </div>
+
+            <!-- Service Card 2: Bespoke Auto Sourcing (The Expertise) -->
+            <div class="service-card bg-card-dark p-8 rounded-2xl shadow-xl border border-gray-800">
+                <div class="text-6xl text-neon-red mb-6">🔍</div>
+                <h2 class="text-3xl font-bold mb-4 uppercase">BESPOKE AUTO SOURCING</h2>
+                <p class="text-lg text-gray-300 mb-4">
+                    Can't find it in the Nigerian market? We leverage our global network to find and import the most exclusive and rare vehicles.
+                </p>
+                <div class="bg-gray-900 p-4 rounded-lg mt-6 h-[11.5rem]">
+                    <h4 class="font-bold text-neon-red mb-2">THE PROCESS</h4>
+                    <ul class="list-disc list-inside text-sm text-gray-400 space-y-1 text-left">
+                        <li>Client consultation and specifications.</li>
+                        <li>Global vehicle search and verification.</li>
+                        <li>Door-to-door logistics and customs clearance.</li>
+                        <li>Delivery, fully documented and registered.</li>
+                    </ul>
+                </div>
+                <a href="/contact.html?inquiryType=sales" class="mt-8 inline-block bg-neon-red text-primary-dark font-bold px-6 py-3 rounded-lg uppercase btn-pulse transition duration-300 shadow-md">
+                    Start Sourcing
+                </a>
+            </div>
+
+            <!-- Service Card 3: After-Sales & Insurance (The Assurance) -->
+            <div class="service-card bg-card-dark p-8 rounded-2xl shadow-xl border border-gray-800">
+                <div class="text-6xl text-neon-red mb-6">🛡️</div>
+                <h2 class="text-3xl font-bold mb-4 uppercase">ASSURANCE & SUPPORT</h2>
+                <p class="text-lg text-gray-300 mb-4">
+                    Your luxury experience doesn't end at the sale. We ensure your investment is protected and maintained by trusted partners.
+                </p>
+                <div class="bg-gray-900 p-4 rounded-lg mt-6 h-[11.5rem]">
+                    <h4 class="font-bold text-neon-red mb-2">WHAT WE COVER</h4>
+                    <ul class="list-disc list-inside text-sm text-gray-400 space-y-1 text-left">
+                        <li>Certified pre-delivery inspections.</li>
+                        <li>Referrals to premium maintenance workshops.</li>
+                        <li>Comprehensive vehicle insurance consultation.</li>
+                        <li>Documentation and registration assistance.</li>
+                    </ul>
+                </div>
+                <a href="/contact.html?inquiryType=general" class="mt-8 inline-block bg-neon-red text-primary-dark font-bold px-6 py-3 rounded-lg uppercase btn-pulse transition duration-300 shadow-md">
+                    Get Support
+                </a>
+            </div>
+        </div>
+
+        <!-- Secondary CTA Block -->
+        <div class="mt-20 text-center bg-card-dark p-10 rounded-2xl border border-gray-800 max-w-4xl mx-auto shadow-2xl">
+            <h3 class="text-4xl font-extrabold text-neon-red mb-4">READY TO BEGIN YOUR DRIVE?</h3>
+            <p class="text-lg mb-8 text-gray-300">Contact our sales team today to discuss your next luxury vehicle acquisition or financing needs.</p>
+            <a href="/contact.html" class="inline-block bg-neon-red text-primary-dark font-extrabold px-12 py-4 rounded-lg uppercase text-xl btn-pulse transition duration-300">
+                Contact Our Team
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer (Consistent Look) -->
+    <footer class="bg-gray-900 py-6 px-6 text-center text-gray-400 border-t border-gray-800">
+        <div class="text-lg mb-2">
+            <a href="#" class="hover:text-neon-red mx-2">IG</a> |
+            <a href="#" class="hover:text-neon-red mx-2">X</a> |
+            <a href="#" class="hover:text-neon-red mx-2">YT</a>
+        </div>
+        <p class="text-xs">&copy; 2025 Sarkin Mota Autos. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
