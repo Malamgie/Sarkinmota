@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarkin Mota Autos | Meet the CEO</title>
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Configure custom colors for easy use */
+        :root {
+            --color-neon-red: #ff003c;
+        }
+
+        /* Custom Tailwind Configuration */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-red': 'var(--color-neon-red)',
+                        'primary-dark': '#000000',
+                        'secondary-light': '#ffffff',
+                        'card-dark': '#0d0d0d',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+
+        /* --- Custom CSS for Visual Effects --- */
+        
+        /* Neon Border around the main image */
+        .ceo-image-container {
+            border: 4px solid var(--color-neon-red);
+            box-shadow: 0 0 25px rgba(255, 0, 60, 0.7);
+            transition: transform 0.3s;
+        }
+
+        /* Subtle glow animation for the image on hover */
+        .ceo-image-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 35px var(--color-neon-red);
+        }
+
+        /* Animated Button Pulse on Hover */
+        .btn-pulse:hover {
+            animation: pulse 0.5s infinite alternate;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.01); }
+        }
+
+        /* Story block accent */
+        .story-block h3 {
+            border-left: 4px solid var(--color-neon-red);
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-primary-dark font-sans text-secondary-light min-h-screen">
+
+    <!-- Navigation (Consistent Look) -->
+    <header class="w-full flex justify-center lg:justify-between items-center px-4 lg:px-20 py-4 backdrop-blur-sm bg-primary-dark/80 shadow-lg border-b border-gray-800">
+        <div class="logo text-2xl font-extrabold tracking-wider text-neon-red">SARKIN MOTA AUTOS</div>
+        <nav class="hidden lg:flex">
+            <ul class="flex space-x-6 text-sm font-semibold">
+                <li><a href="/index.html" class="hover:text-neon-red transition duration-200">HOME</a></li>
+                <li><a href="/inventory" class="hover:text-neon-red transition duration-200">INVENTORY</a></li>
+                <li><a href="/services.html" class="hover:text-neon-red transition duration-200">SERVICES</a></li>
+                <li><a href="/contact.html" class="bg-neon-red text-primary-dark px-3 py-1 rounded-full hover:bg-white hover:text-neon-red transition duration-300 ml-4 shadow-lg">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="py-16 px-4 lg:py-24 lg:px-20">
+        <!-- Main Header -->
+        <h1 class="text-5xl lg:text-7xl font-extrabold uppercase text-center mb-4 text-secondary-light">MEET THE CEO: AL AMIN SARKINMOTA</h1>
+        <p class="text-xl text-center text-gray-400 mb-16">The visionary behind the luxury, the hustle behind the brand.</p>
+        
+        <div class="max-w-6xl mx-auto">
+            
+            <!-- 1. HERO PROFILE SECTION -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-start mb-20">
+                
+                <!-- Image and quick facts -->
+                <div class="md:col-span-1 flex flex-col items-center">
+                    <div class="w-full h-80 bg-gray-900 rounded-xl overflow-hidden ceo-image-container mb-6">
+                        <!-- Placeholder for High-Quality CEO Photo -->
+                        <img src="placeholder-ceo-profile.jpg" alt="Al Amin Sarkinmota Profile" class="w-full h-full object-cover opacity-80">
+                    </div>
+                    
+                    <div class="bg-card-dark p-6 rounded-xl shadow-lg border border-gray-800 w-full text-left">
+                        <h3 class="text-xl font-bold mb-3 text-neon-red">QUICK FACTS</h3>
+                        <ul class="text-sm space-y-2 text-gray-400">
+                            <li><strong>Born:</strong> [Year Placeholder]</li>
+                            <li><strong>Hometown:</strong> [City Placeholder]</li>
+                            <li><strong>Education:</strong> [Degree Placeholder], ABU Zaria</li>
+                            <li><strong>Company Founded:</strong> 2019</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Biography Lead -->
+                <div class="md:col-span-2 space-y-6 text-lg">
+                    <p class="text-3xl font-extrabold italic text-neon-red leading-snug">
+                        "Success isn't about the car you buy; it's about the **drive** and the **hustle** to achieve it."
+                    </p>
+                    <p class="text-gray-300">
+                        Al Amin Sarkinmota is more than a luxury car dealer—he is a testament to the power of digital entrepreneurship and relentless ambition. Starting his venture in 2019, he quickly transformed a passion for high-end automobiles into one of Nigeria’s most recognizable luxury brands, leveraging social media to build trust and a viral presence during the COVID-19 era.
+                    </p>
+                    <p class="text-gray-300">
+                        His philosophy is rooted in **transparency** and **excellence**, ensuring every transaction, from a rare Rolls-Royce to a specialized car loan for a civil servant, is handled with meticulous professionalism.
+                    </p>
+                    <a href="/blog-media" class="inline-block text-neon-red font-semibold hover:underline mt-4">See His Latest Media Features &rarr;</a>
+                </div>
+            </div>
+
+            <!-- 2. THE STORY: MILESTONES -->
+            <div class="bg-card-dark p-10 rounded-2xl shadow-2xl border border-gray-800 space-y-12 mb-20">
+                <h2 class="text-4xl font-extrabold uppercase text-center text-secondary-light">THE ROAD TRAVELED</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Story Block 1: Early Life & Foundation -->
+                    <div class="story-block">
+                        <h3 class="text-2xl font-bold text-neon-red">FOUNDATION & VISION</h3>
+                        <p class="text-gray-400">
+                            A graduate of [Department Placeholder] at **Ahmadu Bello University (ABU) Zaria**, Al Amin was trained to be detail-oriented and strategic. This academic background laid the foundation for the rigorous operational standards he later applied to the auto industry. His early career was defined by a strong belief that the Nigerian market deserved access to verifiable, high-quality luxury imports.
+                        </p>
+                    </div>
+
+                    <!-- Story Block 2: The Viral Breakthrough -->
+                    <div class="story-block">
+                        <h3 class="text-2xl font-bold text-neon-red">THE VIRAL BREAKTHROUGH (2020)</h3>
+                        <p class="text-gray-400">
+                            While the world paused, Sarkin Mota accelerated. By utilizing engaging content and showcasing his inventory on platforms like Instagram and YouTube, he built a massive, authentic following. His ability to connect directly with an audience transformed his company from a local showroom into a national brand, making him synonymous with luxury vehicle sales.
+                        </p>
+                    </div>
+
+                    <!-- Story Block 3: Public Service & Ethics -->
+                    <div class="story-block">
+                        <h3 class="text-2xl font-bold text-neon-red">ETHICS & THE NOA LETTER</h3>
+                        <p class="text-gray-400">
+                            His commitment to ethical practices was highlighted during his public response to the National Orientation Agency (NOA) letter regarding his loans for civil servants. This episode reinforced his commitment to **financial accessibility** and **transparency**, positioning him as a businessman who addresses public discourse with professionalism and confidence.
+                        </p>
+                    </div>
+
+                    <!-- Story Block 4: Diversification -->
+                    <div class="story-block">
+                        <h3 class="text-2xl font-bold text-neon-red">BUILDING THE EMPIRE</h3>
+                        <p class="text-gray-400">
+                            The brand's future is about exponential growth. Al Amin is actively diversifying his portfolio, launching major operations in **Real Estate**, **Oil & Gas**, and exploring opportunities in **Agriculture and Recycling**. His vision is to build a diversified economic force based on Nigerian growth and global quality standards.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. BOOKING CTA -->
+            <div class="mt-16 text-center">
+                <h3 class="text-3xl font-extrabold text-secondary-light mb-4">WANT TO COLLABORATE OR BOOK AN APPEARANCE?</h3>
+                <p class="text-lg text-gray-400 mb-8">For media inquiries, speaking engagements, or high-level partnerships, reach out directly.</p>
+                <a href="/contact.html?inquiryType=media" class="inline-block bg-neon-red text-primary-dark font-extrabold px-10 py-4 rounded-lg uppercase text-xl btn-pulse transition duration-300 shadow-xl">
+                    Media Inquiries
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer (Consistent Look) -->
+    <footer class="bg-gray-900 py-6 px-6 text-center text-gray-400 border-t border-gray-800">
+        <div class="text-lg mb-2">
+            <a href="#" class="hover:text-neon-red mx-2">IG</a> |
+            <a href="#" class="hover:text-neon-red mx-2">X</a> |
+            <a href="#" class="hover:text-neon-red mx-2">YT</a>
+        </div>
+        <p class="text-xs">&copy; 2025 Sarkin Mota Autos. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
