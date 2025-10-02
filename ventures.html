@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarkin Mota Autos | Ventures</title>
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Configure custom colors for easy use */
+        :root {
+            --color-neon-red: #ff003c;
+        }
+
+        /* Custom Tailwind Configuration */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-red': 'var(--color-neon-red)',
+                        'primary-dark': '#000000',
+                        'secondary-light': '#ffffff',
+                        'card-dark': '#0d0d0d',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+
+        /* --- Custom CSS for Venture Card Animation --- */
+        .venture-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 5px solid transparent;
+        }
+
+        .venture-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 0, 60, 0.4); /* Stronger neon glow */
+            border-top-color: var(--color-neon-red);
+        }
+
+        /* Simple button pulse */
+        .btn-pulse:hover {
+            animation: pulse 0.5s infinite alternate;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.01); }
+        }
+    </style>
+</head>
+<body class="bg-primary-dark font-sans text-secondary-light min-h-screen">
+
+    <!-- Navigation (Consistent Look) -->
+    <header class="w-full flex justify-center lg:justify-between items-center px-4 lg:px-20 py-4 backdrop-blur-sm bg-primary-dark/80 shadow-lg border-b border-gray-800">
+        <div class="logo text-2xl font-extrabold tracking-wider text-neon-red">SARKIN MOTA AUTOS</div>
+        <nav class="hidden lg:flex">
+            <ul class="flex space-x-6 text-sm font-semibold">
+                <li><a href="/index.html" class="hover:text-neon-red transition duration-200">HOME</a></li>
+                <li><a href="/inventory" class="hover:text-neon-red transition duration-200">INVENTORY</a></li>
+                <li><a href="/ceo-profile.html" class="hover:text-neon-red transition duration-200">MEET THE CEO</a></li>
+                <li><a href="/contact.html" class="bg-neon-red text-primary-dark px-3 py-1 rounded-full hover:bg-white hover:text-neon-red transition duration-300 ml-4 shadow-lg">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="py-16 px-4 lg:py-24 lg:px-20">
+        <!-- Main Header -->
+        <h1 class="text-5xl lg:text-7xl font-extrabold uppercase text-center mb-4 text-secondary-light">BUILDING AN EMPIRE</h1>
+        <p class="text-xl text-center text-gray-400 mb-16">The diversification strategy driving the future of the Sarkin Mota brand.</p>
+        
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Vision Statement Block -->
+            <div class="bg-card-dark p-8 rounded-2xl shadow-xl border border-gray-800 mb-20 text-center">
+                <h2 class="text-3xl font-extrabold text-neon-red mb-4">OUR MISSION EXTENDS BEYOND THE ROAD.</h2>
+                <p class="text-lg text-gray-300 max-w-4xl mx-auto">
+                    We apply the same commitment to excellence and high-growth strategy that defines Sarkin Mota Autos across high-impact sectors, ensuring long-term value creation and contributing to Nigeria's economic diversity.
+                </p>
+            </div>
+
+            <!-- Ventures Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Venture Card 1: Real Estate -->
+                <a href="/ventures/real-estate" class="venture-card block bg-card-dark p-8 rounded-2xl shadow-xl border border-gray-800 hover:bg-gray-900 text-center">
+                    <div class="text-7xl text-neon-red mb-6">🏢</div>
+                    <h3 class="text-3xl font-bold mb-4 uppercase text-secondary-light">REAL ESTATE</h3>
+                    <p class="text-gray-400 mb-6">
+                        Developing modern, high-quality residential and commercial properties. Focused on strategic investments in rapidly developing urban centers.
+                    </p>
+                    <span class="text-neon-red font-semibold uppercase tracking-wider text-sm">Explore Developments &rarr;</span>
+                </a>
+
+                <!-- Venture Card 2: Oil & Gas -->
+                <a href="/ventures/oil-gas" class="venture-card block bg-card-dark p-8 rounded-2xl shadow-xl border border-gray-800 hover:bg-gray-900 text-center">
+                    <div class="text-7xl text-neon-red mb-6">⛽</div>
+                    <h3 class="text-3xl font-bold mb-4 uppercase text-secondary-light">OIL & GAS</h3>
+                    <p class="text-gray-400 mb-6">
+                        Involved in distribution and logistics, ensuring reliable energy supply. Our operations are streamlined for efficiency and focused on market stability.
+                    </p>
+                    <span class="text-neon-red font-semibold uppercase tracking-wider text-sm">View Operations &rarr;</span>
+                </a>
+
+                <!-- Venture Card 3: Agriculture & Recycling -->
+                <a href="/ventures/agriculture" class="venture-card block bg-card-dark p-8 rounded-2xl shadow-xl border border-gray-800 hover:bg-gray-900 text-center">
+                    <div class="text-7xl text-neon-red mb-6">🌾</div>
+                    <h3 class="text-3xl font-bold mb-4 uppercase text-secondary-light">AGRI & RECYCLING</h3>
+                    <p class="text-gray-400 mb-6">
+                        Investing in sustainable agriculture technology and waste management solutions, driving both profitability and environmental responsibility.
+                    </p>
+                    <span class="text-neon-red font-semibold uppercase tracking-wider text-sm">Discover Sustainability &rarr;</span>
+                </a>
+            </div>
+
+            <!-- Partnership CTA Block -->
+            <div class="mt-20 text-center bg-card-dark p-12 rounded-2xl border border-gray-800 shadow-2xl">
+                <h3 class="text-4xl font-extrabold text-secondary-light mb-4">OPPORTUNITY MEETS AMBITION.</h3>
+                <p class="text-xl mb-8 text-gray-400">Interested in partnership or investment opportunities within our growing portfolio?</p>
+                <a href="/contact.html?inquiryType=investment" class="inline-block bg-neon-red text-primary-dark font-extrabold px-12 py-4 rounded-lg uppercase text-xl btn-pulse transition duration-300">
+                    Inquire About Investment
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (Consistent Look) -->
+    <footer class="bg-gray-900 py-6 px-6 text-center text-gray-400 border-t border-gray-800">
+        <div class="text-lg mb-2">
+            <a href="#" class="hover:text-neon-red mx-2">IG</a> |
+            <a href="#" class="hover:text-neon-red mx-2">X</a> |
+            <a href="#" class="hover:text-neon-red mx-2">YT</a>
+        </div>
+        <p class="text-xs">&copy; 2025 Sarkin Mota Autos. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
+ 
