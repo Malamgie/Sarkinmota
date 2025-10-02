@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarkin Mota Autos | Drive Your Ambition</title>
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Configure custom colors for easy use */
+        :root {
+            --color-neon-red: #ff003c;
+        }
+
+        /* Custom Tailwind Configuration */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-red': 'var(--color-neon-red)',
+                        'primary-dark': '#000000',
+                        'secondary-light': '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+
+        /* --- Custom CSS for High-Energy Animations --- */
+
+        /* Animation: Neon Glow Flicker for the Title */
+        @keyframes flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 4px var(--color-neon-red), 0 0 11px var(--color-neon-red), 0 0 19px var(--color-neon-red), 0 0 40px #f0f;
+                opacity: 1;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+                opacity: 0.8;
+            }
+        }
+
+        /* Animation: Subtle Pulse for Buttons */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        /* Animation: Logo Pulse */
+        @keyframes logo-pulse {
+            0% { color: #fff; text-shadow: 0 0 1px var(--color-neon-red); }
+            100% { color: var(--color-neon-red); text-shadow: 0 0 8px var(--color-neon-red); }
+        }
+
+        /* Initial states for scroll-in animations (hidden and offset) */
+        .slide-in-left { transform: translateX(-100%); opacity: 0; }
+        .slide-in-right { transform: translateX(100%); opacity: 0; }
+        .fade-in { opacity: 0; }
+        .zoom-in { transform: scale(0.9); opacity: 0; }
+
+        /* Final state for scroll-in animations (triggered by JS) */
+        .in-view {
+            transform: translateX(0) scale(1) !important;
+            opacity: 1 !important;
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Video background styling */
+        #hero-video {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Parallax effect on featured title (needs JS support) */
+        .title-parallax {
+            transition: transform 0.1s;
+        }
+    </style>
+</head>
+<body class="bg-primary-dark font-sans text-secondary-light">
+
+    <!-- 1. NAVIGATION BAR (Sticky & Dynamic) -->
+    <header id="main-nav" class="fixed top-0 left-0 w-full z-50 flex justify-center lg:justify-between items-center px-4 lg:px-20 py-4 transition-all duration-300 backdrop-blur-sm bg-primary-dark/80 shadow-lg">
+        <div class="logo text-2xl font-extrabold tracking-wider animate-pulse" style="animation: logo-pulse 3s infinite alternate;">SARKIN MOTA AUTOS</div>
+        <nav class="hidden lg:flex">
+            <ul class="flex space-x-6 text-sm font-semibold">
+                <li><a href="#hero" class="hover:text-neon-red transition duration-200 border-b-2 border-transparent hover:border-neon-red pb-1">HOME</a></li>
+                <li><a href="#featured" class="hover:text-neon-red transition duration-200 border-b-2 border-transparent hover:border-neon-red pb-1">INVINENTORY</a></li>
+                <li><a href="#ceo" class="hover:text-neon-red transition duration-200 border-b-2 border-transparent hover:border-neon-red pb-1">MEET THE CEO</a></li>
+                <li><a href="#ventures" class="hover:text-neon-red transition duration-200 border-b-2 border-transparent hover:border-neon-red pb-1">VENTURES</a></li>
+                <li><a href="/services" class="hover:text-neon-red transition duration-200 border-b-2 border-transparent hover:border-neon-red pb-1">SERVICES</a></li>
+                <li><a href="/blog-media" class="hover:text-neon-red transition duration-200 border-b-2 border-transparent hover:border-neon-red pb-1">NEWS & MEDIA</a></li>
+                <li><a href="#contact" class="bg-neon-red text-primary-dark px-3 py-1 rounded-full hover:bg-white hover:text-neon-red transition duration-300 ml-4 shadow-lg">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 1. THE HERO SECTION (Animated & High-Energy) -->
+        <section id="hero" class="relative h-screen flex justify-center items-center overflow-hidden text-center">
+            <div class="absolute inset-0 z-0 bg-black/70">
+                <!-- PLACEHOLDER FOR VIDEO LOOP -->
+                <video autoplay muted loop id="hero-video" class="w-full h-full absolute top-0 left-0">
+                    <source src="placeholder-video.mp4" type="video/mp4">
+                    <!-- The dark overlay above provides contrast for the text -->
+                    <div class="w-full h-full bg-primary-dark flex justify-center items-center">
+                        <p class="text-xl text-white/50">Video Background Placeholder: High-Speed Luxury Cars</p>
+                    </div>
+                </video>
+            </div>
+            <div class="relative z-10 p-6 rounded-xl">
+                <h1 class="text-7xl lg:text-9xl font-extrabold uppercase animate-flicker" style="animation: flicker 1.5s infinite alternate;">DRIVE YOUR AMBITION.</h1>
+                <p class="text-xl lg:text-2xl mt-4 tracking-wider opacity-0 fade-in" style="transition-delay: 1.5s;">The future of luxury is here.</p>
+                <a href="#featured" class="btn btn-primary mt-10 inline-block bg-neon-red text-primary-dark font-bold px-10 py-4 rounded-lg shadow-2xl hover:bg-white hover:text-neon-red transition duration-300 uppercase transform hover:scale-105" style="animation: pulse 1s infinite;">VIEW OUR INVENTORY</a>
+            </div>
+        </section>
+
+        <!-- 3. FEATURED CAR SHOWCASE (Animated & Interactive) -->
+        <section id="featured" class="py-24 px-6 lg:px-20 bg-secondary-light text-primary-dark overflow-hidden">
+            <h2 class="title-parallax text-4xl lg:text-5xl font-extrabold mb-16 uppercase text-center" id="featured-title">LUXURY ARRIVALS. BOUGHT TO BE DRIVEN.</h2>
+            <div class="flex flex-col lg:flex-row justify-center gap-8">
+                <!-- Car Card 1 -->
+                <div class="car-card w-full lg:w-1/3 bg-gray-900 text-white rounded-xl shadow-2xl overflow-hidden slide-in-left">
+                    <div class="img-placeholder relative h-64 overflow-hidden group">
+                        <!-- PLACEHOLDER FOR FEATURED CAR IMAGE 1 -->
+                        <img src="placeholder-car-1.jpg" alt="Mercedes G-Wagon" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                        <div class="car-hover-info absolute inset-0 bg-neon-red/90 flex justify-center items-center opacity-0 group-hover:opacity-100 transition duration-300 text-2xl font-bold">Mercedes G-Wagon. Ultimate power.</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-neon-red">Mercedes G-Wagon</h3>
+                        <p class="text-gray-300 mt-2">The iconic SUV. Built for ambition.</p>
+                        <a href="/car/gwagon" class="block mt-4 text-sm font-semibold underline hover:text-white transition duration-300">PRICE ON REQUEST</a>
+                    </div>
+                </div>
+
+                <!-- Car Card 2 -->
+                <div class="car-card w-full lg:w-1/3 bg-gray-900 text-white rounded-xl shadow-2xl overflow-hidden slide-in-right">
+                    <div class="img-placeholder relative h-64 overflow-hidden group">
+                        <!-- PLACEHOLDER FOR FEATURED CAR IMAGE 2 -->
+                        <img src="placeholder-car-2.jpg" alt="Rolls-Royce Phantom" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                        <div class="car-hover-info absolute inset-0 bg-neon-red/90 flex justify-center items-center opacity-0 group-hover:opacity-100 transition duration-300 text-2xl font-bold">Rolls-Royce Phantom. Redefined elegance.</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-neon-red">Rolls-Royce Phantom</h3>
+                        <p class="text-gray-300 mt-2">Redefined elegance. The pinnacle of automotive luxury.</p>
+                        <a href="/car/phantom" class="block mt-4 text-sm font-semibold underline hover:text-white transition duration-300">PRICE ON REQUEST</a>
+                    </div>
+                </div>
+            </div>
+            <a href="/inventory" class="btn-secondary mt-12 inline-block bg-primary-dark text-white border-2 border-neon-red font-bold px-8 py-3 rounded-lg hover:bg-neon-red hover:text-primary-dark transition duration-300 uppercase">SEE ALL CARS</a>
+        </section>
+
+        <!-- 4. MEET THE VISION (Personal Brand Spotlight) -->
+        <section id="ceo" class="py-24 px-6 lg:px-20 bg-primary-dark text-secondary-light">
+            <h2 class="text-4xl lg:text-5xl font-extrabold mb-16 uppercase text-center fade-in">MEET AL AMIN SARKINMOTA: THE VISIONARY</h2>
+            <div class="flex flex-col lg:flex-row items-center max-w-5xl mx-auto gap-12">
+                <div class="w-full lg:w-1/3 h-96 overflow-hidden rounded-xl shadow-2xl border-4 border-neon-red zoom-in">
+                    <!-- PLACEHOLDER FOR PROFESSIONAL PHOTO -->
+                    <img src="placeholder-ceo-photo.jpg" alt="Al Amin Sarkinmota" class="w-full h-full object-cover">
+                </div>
+                <div class="w-full lg:w-2/3 text-center lg:text-left fade-in" style="transition-delay: 0.5s;">
+                    <p class="text-2xl italic font-light text-neon-red mb-8 leading-relaxed">
+                        "Success isn't about the car you buy; it's about the drive to achieve it. Hustle hard."
+                    </p>
+                    <p class="text-lg mb-6">
+                        From leveraging social media during the lockdown to building one of Abuja's most recognizable luxury auto brands, Al Amin Sarkinmota embodies the spirit of entrepreneurship and ambition. His story goes beyond vehicles—it’s about financial independence and turning passion into a thriving enterprise.
+                    </p>
+                    <a href="/ceo-profile" class="btn-primary inline-block mt-4 bg-neon-red text-primary-dark font-bold px-8 py-3 rounded-lg hover:bg-white hover:text-neon-red transition duration-300 uppercase">READ HIS STORY</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. MEDIA & VIRAL HUB (The Energy Source) -->
+        <section id="media" class="py-24 px-6 lg:px-20 bg-secondary-light text-primary-dark">
+            <h2 class="text-4xl lg:text-5xl font-extrabold mb-16 uppercase text-center fade-in">THE BUZZ. THE VIRAL. THE HUSTLE.</h2>
+            <div class="media-grid flex flex-wrap justify-center gap-6 mb-12">
+                <!-- Video Thumb 1 -->
+                <div class="video-thumb w-full sm:w-1/2 lg:w-1/4 cursor-pointer transform hover:scale-[1.02] transition duration-300 rounded-lg overflow-hidden shadow-xl border-2 border-gray-200 hover:border-neon-red slide-in-left">
+                    <div class="h-40 bg-gray-700 flex items-center justify-center text-white/50">VIDEO 1 THUMBNAIL PLACEHOLDER</div>
+                    <p class="p-3 text-sm font-semibold bg-gray-100 text-center">Can Civil Servants Afford You?</p>
+                </div>
+                <!-- Video Thumb 2 -->
+                <div class="video-thumb w-full sm:w-1/2 lg:w-1/4 cursor-pointer transform hover:scale-[1.02] transition duration-300 rounded-lg overflow-hidden shadow-xl border-2 border-gray-200 hover:border-neon-red fade-in" style="transition-delay: 0.2s;">
+                    <div class="h-40 bg-gray-700 flex items-center justify-center text-white/50">VIDEO 2 THUMBNAIL PLACEHOLDER</div>
+                    <p class="p-3 text-sm font-semibold bg-gray-100 text-center">Latest Luxury Haul</p>
+                </div>
+                <!-- Video Thumb 3 -->
+                <div class="video-thumb w-full sm:w-1/2 lg:w-1/4 cursor-pointer transform hover:scale-[1.02] transition duration-300 rounded-lg overflow-hidden shadow-xl border-2 border-gray-200 hover:border-neon-red slide-in-right">
+                    <div class="h-40 bg-gray-700 flex items-center justify-center text-white/50">VIDEO 3 THUMBNAIL PLACEHOLDER</div>
+                    <p class="p-3 text-sm font-semibold bg-gray-100 text-center">Showroom Grand Tour</p>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <p class="text-lg text-gray-700 mb-6">Follow our latest action and commentary on all social platforms.</p>
+                <a href="/blog-media" class="btn-secondary inline-block bg-primary-dark text-white border-2 border-neon-red font-bold px-8 py-3 rounded-lg hover:bg-neon-red hover:text-primary-dark transition duration-300 uppercase">SEE ALL PRESS & MEDIA</a>
+            </div>
+        </section>
+
+        <!-- 6. DIVERSIFICATION & FUTURE VENTURES -->
+        <section id="ventures" class="py-24 px-6 lg:px-20 bg-primary-dark text-secondary-light">
+            <h2 class="text-4xl lg:text-5xl font-extrabold mb-16 uppercase text-center fade-in">BEYOND AUTOS: BUILDING AN EMPIRE</h2>
+            <p class="text-lg text-gray-400 mb-12 text-center">
+                Exploring opportunities in Real Estate, Energy, and Sustainability for Nigeria's future.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-8 max-w-5xl mx-auto">
+                <!-- Venture Card 1 -->
+                <div class="venture-card w-full md:w-1/3 p-8 rounded-xl border border-gray-700 text-center transform hover:scale-[1.05] hover:shadow-neon-red transition duration-300 cursor-pointer zoom-in">
+                    <i class="text-5xl text-neon-red block mb-4">🏢</i>
+                    <h4 class="text-2xl font-bold mb-2">REAL ESTATE</h4>
+                    <p class="text-gray-400">Prime property sourcing and development.</p>
+                </div>
+                <!-- Venture Card 2 -->
+                <div class="venture-card w-full md:w-1/3 p-8 rounded-xl border border-gray-700 text-center transform hover:scale-[1.05] hover:shadow-neon-red transition duration-300 cursor-pointer zoom-in" style="transition-delay: 0.2s;">
+                    <i class="text-5xl text-neon-red block mb-4">⛽</i>
+                    <h4 class="text-2xl font-bold mb-2">OIL & GAS</h4>
+                    <p class="text-gray-400">Investing in Nigeria's energy future.</p>
+                </div>
+                <!-- Venture Card 3 -->
+                <div class="venture-card w-full md:w-1/3 p-8 rounded-xl border border-gray-700 text-center transform hover:scale-[1.05] hover:shadow-neon-red transition duration-300 cursor-pointer zoom-in" style="transition-delay: 0.4s;">
+                    <i class="text-5xl text-neon-red block mb-4">🌾</i>
+                    <h4 class="text-2xl font-bold mb-2">AGRI & RECYCLING</h4>
+                    <p class="text-gray-400">Commitment to sustainable growth.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 7. FOOTER -->
+    <footer id="contact" class="bg-gray-900 py-10 px-6 text-center text-gray-400">
+        <div class="mb-4">
+            <a href="#" class="text-sm hover:text-neon-red mx-3">Privacy Policy</a>
+            <span class="text-gray-600">|</span>
+            <a href="#" class="text-sm hover:text-neon-red mx-3">Terms of Use</a>
+        </div>
+        <div class="text-lg mb-4">
+            <a href="#" class="hover:text-neon-red mx-2">IG</a> |
+            <a href="#" class="hover:text-neon-red mx-2">X</a> |
+            <a href="#" class="hover:text-neon-red mx-2">YT</a>
+        </div>
+        <p class="mb-2">Showroom: [Physical Address Placeholder, Abuja]</p>
+        <p class="text-neon-red font-semibold mb-6">Contact: [Phone Number Placeholder] | Email: [Email Placeholder]</p>
+        <p class="text-xs">&copy; 2025 Sarkin Mota Autos. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript for dynamic and animated effects -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. STICKY NAVIGATION LOGIC
+            const nav = document.getElementById('main-nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    nav.classList.add('lg:py-2');
+                    nav.classList.remove('lg:py-4');
+                } else {
+                    nav.classList.add('lg:py-4');
+                    nav.classList.remove('lg:py-2');
+                }
+            });
+
+            // 2. SCROLL-IN ANIMATIONS (Intersection Observer)
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Add the 'in-view' class to trigger the CSS transition
+                        entry.target.classList.add('in-view');
+                        // Stop observing once animated to save resources
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            // Select all elements tagged for scroll-in animation
+            document.querySelectorAll('.slide-in-left, .slide-in-right, .fade-in, .zoom-in').forEach(element => {
+                observer.observe(element);
+            });
+            
+            // 3. PARALLAX EFFECT for the Featured Title
+            const parallaxTitle = document.getElementById('featured-title');
+            window.addEventListener('scroll', () => {
+                if (parallaxTitle) {
+                    const scrollY = window.scrollY;
+                    // Adjust the title's vertical position slightly against the scroll
+                    // Only apply if the title is roughly in view to avoid massive numbers
+                    if (scrollY > 500 && scrollY < 2000) { 
+                       const offset = (scrollY - 500) * 0.1; // Slow movement factor 0.1
+                       parallaxTitle.style.transform = `translateY(${offset}px)`;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
