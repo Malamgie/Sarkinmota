@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarkin Mota Autos | Connect With Ambition</title>
+    <!-- Load Firebase/Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global Firebase Variables (Mandatory Canvas Requirement)
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db, auth, userId;
+        setLogLevel('Debug'); // Enable Firestore logging
+
+        // Function to initialize Firebase and authenticate
+        async function initializeFirebase() {
+            try {
+                if (Object.keys(firebaseConfig).length === 0) {
+                    console.error("Firebase config is empty. Cannot initialize.");
+                    return;
+                }
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                
+                userId = auth.currentUser?.uid || crypto.randomUUID();
+                console.log("Firebase initialized. User ID:", userId);
+
+                // Display the User ID for multi-user collaboration (Mandatory)
+                const userIdDisplay = document.getElementById('user-id-display');
+                if (userIdDisplay) {
+                    userIdDisplay.textContent = `User ID: ${userId}`;
+                }
+
+            } catch (error) {
+                console.error("Error during Firebase initialization or sign-in:", error);
+                document.getElementById('status-message').textContent = 'Error initializing services. Check console.';
+            }
+        }
+
+        // Function to handle form submission and save to Firestore
+        async function handleContactFormSubmit(event) {
+            event.preventDefault();
+            
+            if (!db || !userId) {
+                document.getElementById('status-message').textContent = 'Error: Services not ready. Please wait.';
+                return;
+            }
+
+            const status = document.getElementById('status-message');
+            status.textContent = 'Sending message...';
+            status.classList.remove('text-green-500', 'text-red-500');
+            status.classList.add('text-neon-red');
+
+            try {
+                const form = event.target;
+                const contactData = {
+                    userId: userId,
+                    name: form.name.value,
+                    email: form.email.value,
+                    inquiryType: form.inquiryType.value,
+                    message: form.message.value,
+                    timestamp: serverTimestamp()
+                };
+
+                // Store in private user collection: /artifacts/{appId}/users/{userId}/contact_inquiries
+                const inquiriesRef = collection(db, `artifacts/${appId}/users/${userId}/contact_inquiries`);
+                await addDoc(inquiriesRef, contactData);
+
+                status.textContent = 'Message sent successfully! We will be in touch soon.';
+                status.classList.remove('text-neon-red');
+                status.classList.add('text-green-500');
+                form.reset(); // Clear form on success
+
+            } catch (error) {
+                console.error("Error saving contact inquiry:", error);
+                status.textContent = 'Failed to send message. Please check the console.';
+                status.classList.remove('text-neon-red');
+                status.classList.add('text-red-500');
+            }
+        }
+
+        // Attach event listener to the form on load
+        window.onload = () => {
+            initializeFirebase();
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', handleContactFormSubmit);
+            }
+        };
+    </script>
+
+    <style>
+        /* Configure custom colors for easy use */
+        :root {
+            --color-neon-red: #ff003c;
+        }
+
+        /* Custom Tailwind Configuration */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-red': 'var(--color-neon-red)',
+                        'primary-dark': '#000000',
+                        'secondary-light': '#ffffff',
+                        'card-dark': '#0d0d0d',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+
+        /* --- Custom CSS for Neon Focus and Animation --- */
+
+        /* Input field focus effect (the glow) */
+        .neon-focus:focus {
+            outline: none;
+            border-color: var(--color-neon-red) !important;
+            box-shadow: 0 0 10px rgba(255, 0, 60, 0.8), inset 0 0 5px rgba(255, 0, 60, 0.4);
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Animated Button Pulse on Hover */
+        .btn-pulse:hover {
+            animation: pulse 0.5s infinite alternate;
+            background-color: var(--color-neon-red);
+            color: #000;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 5px var(--color-neon-red); }
+            100% { transform: scale(1.02); box-shadow: 0 0 20px var(--color-neon-red); }
+        }
+
+        /* Map Placeholder Visual Effect */
+        .map-placeholder {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            animation: map-glow 3s infinite alternate;
+        }
+
+        @keyframes map-glow {
+            0% { border-color: #333; }
+            100% { border-color: var(--color-neon-red); }
+        }
+    </style>
+</head>
+<body class="bg-primary-dark font-sans text-secondary-light min-h-screen">
+
+    <!-- Navigation (Simplified for single file view) -->
+    <header class="w-full flex justify-center lg:justify-between items-center px-4 lg:px-20 py-4 backdrop-blur-sm bg-primary-dark/80 shadow-lg border-b border-gray-800">
+        <div class="logo text-2xl font-extrabold tracking-wider text-neon-red">SARKIN MOTA AUTOS</div>
+        <nav class="hidden lg:flex">
+            <ul class="flex space-x-6 text-sm font-semibold">
+                <li><a href="/index.html" class="hover:text-neon-red transition duration-200">HOME</a></li>
+                <li><a href="/inventory" class="hover:text-neon-red transition duration-200">INVENTORY</a></li>
+                <li><a href="/ceo-profile" class="hover:text-neon-red transition duration-200">MEET THE CEO</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="py-16 px-4 lg:py-24 lg:px-20">
+        <!-- Main Header -->
+        <h1 class="text-5xl lg:text-7xl font-extrabold uppercase text-center mb-4 text-secondary-light">CONNECT WITH AMBITION</h1>
+        <p class="text-xl text-center text-gray-400 mb-12">Whether a multi-million naira deal or a simple inquiry—we are ready.</p>
+        
+        <!-- User ID Display (Mandatory for collaborative apps) -->
+        <div class="text-center text-xs text-gray-500 mb-8" id="user-id-display">Initializing user...</div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+            
+            <!-- Left Column: Contact Form -->
+            <div class="bg-card-dark p-8 md:p-12 rounded-2xl shadow-2xl border border-gray-800">
+                <h2 class="text-3xl font-bold mb-8 text-neon-red uppercase">Direct Inquiry</h2>
+                <form id="contact-form" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium mb-2 text-gray-300">Full Name</label>
+                        <input type="text" id="name" name="name" required class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg neon-focus transition duration-300">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium mb-2 text-gray-300">Email Address</label>
+                        <input type="email" id="email" name="email" required class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg neon-focus transition duration-300">
+                    </div>
+
+                    <div>
+                        <label for="inquiryType" class="block text-sm font-medium mb-2 text-gray-300">Inquiry Type</label>
+                        <select id="inquiryType" name="inquiryType" required class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg neon-focus transition duration-300 appearance-none">
+                            <option value="sales">Sales Inquiry (Buying a Car)</option>
+                            <option value="financing">Financing/Loan Inquiry</option>
+                            <option value="media">Media & Press</option>
+                            <option value="general">General Question</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="message" class="block text-sm font-medium mb-2 text-gray-300">Message</label>
+                        <textarea id="message" name="message" rows="4" required class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg neon-focus transition duration-300"></textarea>
+                    </div>
+
+                    <div id="status-message" class="text-center font-semibold pt-4"></div>
+
+                    <button type="submit" class="w-full mt-6 bg-neon-red text-primary-dark font-bold py-3 rounded-lg uppercase tracking-wider text-lg btn-pulse transition duration-300">
+                        SEND MESSAGE
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right Column: Showroom Details & Map -->
+            <div class="space-y-12">
+                <!-- Direct Details -->
+                <div class="bg-card-dark p-8 rounded-2xl shadow-2xl border border-gray-800">
+                    <h2 class="text-3xl font-bold mb-6 text-neon-red uppercase">Showroom & Direct Contact</h2>
+                    
+                    <div class="space-y-4 text-lg">
+                        <div class="flex items-center">
+                            <i class="mr-3 text-neon-red">📍</i>
+                            <div>
+                                <p class="font-bold">ADDRESS</p>
+                                <p class="text-gray-400">[Showroom Address Placeholder, Abuja]</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <i class="mr-3 text-neon-red">📞</i>
+                            <div>
+                                <p class="font-bold">PHONE</p>
+                                <p class="text-gray-400">[+234 XXX XXXX XXX]</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center">
+                            <i class="mr-3 text-neon-red">📧</i>
+                            <div>
+                                <p class="font-bold">EMAIL</p>
+                                <p class="text-gray-400">sales@sarkinmotaautos.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <i class="mr-3 text-neon-red">⏰</i>
+                            <div>
+                                <p class="font-bold">HOURS</p>
+                                <p class="text-gray-400">Mon - Sat: 9:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Placeholder -->
+                <div class="h-96 w-full map-placeholder rounded-2xl shadow-2xl flex items-center justify-center">
+                    <p class="text-2xl text-neon-red font-bold animate-pulse">DYNAMIC MAP PLACEHOLDER</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-6 px-6 text-center text-gray-400 border-t border-gray-800">
+        <div class="text-lg mb-2">
+            <a href="#" class="hover:text-neon-red mx-2">IG</a> |
+            <a href="#" class="hover:text-neon-red mx-2">X</a> |
+            <a href="#" class="hover:text-neon-red mx-2">YT</a>
+        </div>
+        <p class="text-xs">&copy; 2025 Sarkin Mota Autos. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
+ 
